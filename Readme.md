@@ -1,4 +1,4 @@
-Sample application
+Sample microservice using Spring Boot
 
 Person
 - id
