@@ -1,4 +1,4 @@
-Sample microservice using Spring Boot
+Sample microservice using Spring Boot (By Amritendu De)
 
 Person
 - id
