@@ -54,6 +54,7 @@ pipeline {
                     docker tag person:latest amritendudockerhub/person:latest
                     docker push amritendudockerhub/person:latest
 					docker rmi -f person:latest
+					docker rmi -f amritendudockerhub/person:latest
                 '''
             }
         }
@@ -62,7 +63,9 @@ pipeline {
             when { branch "master" }
             steps {
                 sh '''
-                    docker start person || docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
+					docker login -u "amritendudockerhub" -p "Passw1rd"
+                    docker pull amritendudockerhub/person:latest
+                    docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
                 '''
             }
         }
@@ -72,10 +75,11 @@ pipeline {
             steps {
                 sh '''
 					docker login -u "amritendudockerhub" -p "Passw1rd"
-					docker pull amritendudockerhub/person:latest
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person:${TAG_NAME}
                     docker push amritendudockerhub/person:${TAG_NAME}
+					docker rmi -f person:latest
+					docker rmi -f amritendudockerhub/person:${TAG_NAME}
                '''
             }
         }
