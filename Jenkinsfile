@@ -26,6 +26,10 @@ pipeline {
             steps {
                 sh './gradlew --no-daemon checkstyleMain checkstyleTest findbugsMain findbugsTest pmdMain pmdTest cpdCheck'
             }
+        } post {
+			always {
+				pmd pattern: 'build/reports/pmd/*.xml'
+			}
         }
 
         stage('Test') {
