@@ -65,7 +65,9 @@ pipeline {
                 sh '''
 					docker login -u "amritendudockerhub" -p "Passw1rd"
                     docker pull amritendudockerhub/person:latest
-                    docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
+					docker stop person
+					docker rm person
+					docker run -p 9090:9090 --name person -t -d --restart unless-stopped amritendudockerhub/person
                 '''
             }
         }
