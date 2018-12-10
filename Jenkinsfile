@@ -38,17 +38,16 @@ pipeline {
 						pattern        : 'build/reports/pmd/*.xml',
 						canRunOnFailed : true
 					])
+					step([
+						$class: 'CheckStylePublisher', 
+						pattern: 'build/reports/checkstyle/*.xml',
+						canRunOnFailed : true
+					])
 				}
 			}
         }
 		
-		stage('Sonar') {
-            steps {
-				sh "{tool 'sq-scanner'}/bin/sonar-scanner"
-			}
-        }
-
-        stage('Test') {
+		stage('Test') {
             steps {
                 sh './gradlew --no-daemon check'
             }
