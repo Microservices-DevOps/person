@@ -31,7 +31,7 @@ pipeline {
                     checkstyle pattern: 'build/reports/checkstyle/*.xml', 
                     dry pattern: 'build/reports/cpd/*.xml'
                     findbugs pattern: 'build/reports/findbugs/*.xml', 
-                    pmd pattern: 'build/reports/pmd/*.xml', 
+                    pmd pattern: 'build/reports/pmd/*.xml'
                 }
             }
         }
@@ -55,7 +55,7 @@ pipeline {
         }
 
         stage('Update Docker UAT image') {
-            when { branch "1.x.x" }
+            when { branch "master" }
             steps {
                 sh '''
 					docker login -u amritendudockerhub -p Passw1rd
@@ -68,7 +68,7 @@ pipeline {
         }
 
         stage('Update UAT container') {
-            when { branch "1.x.x" }
+            when { branch "master" }
             steps {
                 sh '''
                     docker stop person
