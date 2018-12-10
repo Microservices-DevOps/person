@@ -53,7 +53,7 @@ pipeline {
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person:latest
                     docker push amritendudockerhub/person:latest
-					docker rmi $(docker images -f “dangling=true” -q)
+					docker rmi person:latest
                 '''
             }
         }
@@ -67,6 +67,7 @@ pipeline {
 					docker stop person
 					docker rm person
 					docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
+					docker rmi -f $(docker images -q --filter dangling=true)
                 '''
             }
         }
