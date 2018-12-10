@@ -27,7 +27,7 @@ RUN chmod 755 $PERSON_BINARIES/entrypoint.sh
 RUN chmod 755 $PERSON_HOME/person.jar
 
 # Expose default servlet container port
-EXPOSE 8080
+EXPOSE 9090
 
 VOLUME bin
 

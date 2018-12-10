@@ -65,10 +65,9 @@ pipeline {
             when { branch "1.x.x" }
             steps {
                 sh '''
-                    cd /g/Companies/Crossover/Projects/personuat
-                    docker login -u amritendudockerhub -p Passw1rd
-                    docker pull amritendudockerhub/person:latest
-                    docker build --no-cache -t person .
+                    docker stop person
+                    docker rm person
+                    docker run -p 9090:9090 --name person -t -d person
                 '''
             }
         }
