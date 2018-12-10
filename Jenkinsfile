@@ -26,14 +26,6 @@ pipeline {
             steps {
                 sh './gradlew --no-daemon checkstyleMain checkstyleTest findbugsMain findbugsTest pmdMain pmdTest cpdCheck'
             }
-            post {
-                always {
-                    checkstyle pattern: 'build/reports/checkstyle/*.xml', failedTotalAll: '224'
-                    dry pattern: 'build/reports/cpd/*.xml'
-                    findbugs pattern: 'build/reports/findbugs/*.xml', failedTotalAll: '19'
-                    pmd pattern: 'build/reports/pmd/*.xml', failedTotalAll: '0'
-                }
-            }
         }
 
         stage('Test') {
