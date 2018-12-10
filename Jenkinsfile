@@ -28,6 +28,9 @@ pipeline {
             }
 			post {
 				always {
+					checkstyle pattern: 'build/reports/checkstyle/*.xml', 
+                    dry pattern: 'build/reports/cpd/*.xml',
+                    findbugs pattern: 'build/reports/findbugs/*.xml', 
 					pmd pattern: 'build/reports/pmd/*.xml'
 				}
 			}
