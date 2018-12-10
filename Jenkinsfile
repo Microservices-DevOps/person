@@ -43,7 +43,9 @@ pipeline {
         }
 		
 		stage('Sonar') {
-            sh "{tool 'sq-scanner'}/bin/sonar-scanner"
+            steps {
+				sh "{tool 'sq-scanner'}/bin/sonar-scanner"
+			}
         }
 
         stage('Test') {
