@@ -28,10 +28,10 @@ pipeline {
             }
             post {
                 always {
-                    checkstyle pattern: 'build/reports/checkstyle/*.xml', failedTotalAll: '224'
+                    checkstyle pattern: 'build/reports/checkstyle/*.xml', 
                     dry pattern: 'build/reports/cpd/*.xml'
-                    findbugs pattern: 'build/reports/findbugs/*.xml', failedTotalAll: '19'
-                    pmd pattern: 'build/reports/pmd/*.xml', failedTotalAll: '0'
+                    findbugs pattern: 'build/reports/findbugs/*.xml', 
+                    pmd pattern: 'build/reports/pmd/*.xml', 
                 }
             }
         }

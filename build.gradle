@@ -68,6 +68,7 @@ dependencyCheck {
 
 checkstyle {
   configFile = file("${project.rootDir}/checkstyle.xml")
+  ignoreFailures = true
 }
 
 cpd {
