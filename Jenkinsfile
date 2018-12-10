@@ -22,7 +22,7 @@ pipeline {
             }
         }
 
-        stage('Code analysis') {
+        stage('Check Style, FindBugs, PMD') {
             steps {
                 sh './gradlew --no-daemon checkstyleMain checkstyleTest findbugsMain findbugsTest pmdMain pmdTest cpdCheck'
             }
@@ -40,6 +40,10 @@ pipeline {
 					])
 				}
 			}
+        }
+		
+		stage('Sonar') {
+            sh "{tool 'sq-scanner'}/bin/sonar-scanner"
         }
 
         stage('Test') {
