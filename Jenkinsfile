@@ -64,7 +64,7 @@ pipeline {
                 sh '''
                     docker stop person
                     docker rm person
-                    docker run -p 9090:9090 --name person -t -d person
+                    docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
                 '''
             }
         }
