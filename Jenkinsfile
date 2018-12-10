@@ -28,10 +28,16 @@ pipeline {
             }
 			post {
 				always {
-					dry pattern: 'build/reports/cpd/*.xml',
-                    findbugs pattern: 'build/reports/findbugs/*.xml', 
-					pmd pattern: 'build/reports/pmd/*.xml',
-					checkstyle pattern: 'build/reports/checkstyle/*.xml'
+					step([
+						$class         : 'FindBugsPublisher',
+						pattern        : 'build/reports/findbugs/*.xml',
+						canRunOnFailed : true
+					])
+					step([
+						$class         : 'PmdPublisher',
+						pattern        : 'build/reports/pmd/*.xml',
+						canRunOnFailed : true
+					])
 				}
 			}
         }
