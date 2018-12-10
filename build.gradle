@@ -11,6 +11,8 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath('com.github.ksoichiro:gradle-console-reporter:0.5.0')
+		classpath 'org.owasp:dependency-check-gradle:3.1.1'
+		classpath 'de.aaschmid:gradle-cpd-plugin:1.1'
 	}
 }
 
@@ -22,9 +24,15 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.github.ksoichiro.console.reporter'
 
-group = 'com.myapp'
-version = '0.0.1-SNAPSHOT'
+apply plugin: 'org.owasp.dependencycheck'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+apply plugin: 'de.aaschmid.cpd'
+
+
 sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
@@ -42,6 +50,36 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-aop')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.mockito:mockito-core:2.7.22')
-	
+	checkstyle "com.puppycrawl.tools:checkstyle:8.14"
 }
+
+jacocoTestReport {
+  reports {
+    xml.enabled = true
+    html.enabled = true
+  }
+}
+
+check.dependsOn jacocoTestReport
+
+dependencyCheck {
+  format="ALL"
+}
+
+checkstyle {
+  configFile = file("${project.rootDir}/checkstyle.xml")
+}
+
+cpd {
+  ignoreFailures = true
+}
+
+findbugs {
+  ignoreFailures = true
+}
+
+pmd {
+  ignoreFailures = true
+}
+
 
