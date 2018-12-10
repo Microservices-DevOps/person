@@ -62,7 +62,7 @@ pipeline {
             when { branch "master" }
             steps {
                 sh '''
-                    docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
+                    docker start person || docker run -p 9090:9090 --name person -t -d amritendudockerhub/person
                 '''
             }
         }
