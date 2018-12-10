@@ -49,7 +49,7 @@ pipeline {
             when { branch "master" }
             steps {
                 sh '''
-					docker login -u amritendudockerhub -p Passw1rd
+					docker login -u amritendudockerhub -p Passw1rd hub.docker.com
                     docker pull amritendudockerhub/person:latest
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person/person:latest
@@ -73,7 +73,7 @@ pipeline {
             when { buildingTag() }
             steps {
                 sh '''
-					docker login -u amritendudockerhub -p Passw1rd
+					docker login -u amritendudockerhub -p Passw1rd hub.docker.com
 					docker pull amritendudockerhub/person:latest
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person/person:${TAG_NAME}
