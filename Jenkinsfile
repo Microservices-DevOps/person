@@ -10,7 +10,13 @@ pipeline {
     options { disableConcurrentBuilds() }
 
     stages {
-        stage('Cleanup') {
+        stage('Permissions') {
+            steps {
+                sh 'chmod 775 *'
+            }
+        }
+		
+		stage('Cleanup') {
             steps {
                 sh './gradlew --no-daemon clean'
             }
