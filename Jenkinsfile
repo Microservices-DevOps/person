@@ -53,8 +53,7 @@ pipeline {
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person:latest
                     docker push amritendudockerhub/person:latest
-					docker rmi -f person:latest
-					docker rmi -f amritendudockerhub/person:latest
+					docker rmi $(docker images -f “dangling=true” -q)
                 '''
             }
         }
@@ -80,8 +79,7 @@ pipeline {
                     docker build --no-cache -t person .
                     docker tag person:latest amritendudockerhub/person:${TAG_NAME}
                     docker push amritendudockerhub/person:${TAG_NAME}
-					docker rmi -f person:latest
-					docker rmi -f amritendudockerhub/person:${TAG_NAME}
+					docker rmi $(docker images -f “dangling=true” -q)
                '''
             }
         }
